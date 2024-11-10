@@ -10,12 +10,14 @@ type Stack[T any] struct {
 	data []T
 }
 
+// Push adds an element of generic type T to the top of the stack.
 func (s *Stack[T]) Push(v T) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.data = append(s.data, v)
 }
 
+// Pop removes and returns the element from the top of the stack. Returns an error if the stack is empty.
 func (s *Stack[T]) Pop() (T, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -31,6 +33,7 @@ func (s *Stack[T]) Pop() (T, error) {
 	return value, nil
 }
 
+// Peek returns the element at the top of the stack without removing it. Returns an error if the stack is empty.
 func (s *Stack[T]) Peek() (T, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
